@@ -1,0 +1,439 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   Me TIME FOODS — 同梱物スクラッチ（プロトタイプ）
+   編集は script 冒頭の CONFIG のみ
+   ============================================================ */
+:root{
+  --cream:#F9EDE5;
+  --pink:#FF809D;
+  --pink-deep:#E45C7C;
+  --pink-pale:#F6C1D7;
+  --charcoal:#4A4A4A;
+  --charcoal-soft:#7C7269;
+  --line-green:#06C755;
+  --rose:#D4426C;
+  --rose-dark:#A82B50;
+  --gold:#DCB160;
+  --gold-lt:#F3DFAE;
+  --r:20px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:"Zen Maru Gothic",system-ui,sans-serif;
+  background:var(--cream);color:var(--charcoal);
+  font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:440px;margin:0 auto;padding:28px 20px 56px}
+
+.eyebrow{font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--pink-deep);text-align:center;margin:0 0 10px}
+h1{font-size:27px;font-weight:900;line-height:1.5;text-align:center;margin:0 0 14px}
+.lead{text-align:center;color:var(--charcoal-soft);font-size:15px;margin:0 0 26px}
+
+.btn{
+  display:block;width:100%;border:0;border-radius:999px;
+  font-family:inherit;font-size:18px;font-weight:700;padding:19px 20px;cursor:pointer;
+  background:var(--pink);color:#fff;box-shadow:0 4px 0 var(--pink-deep);
+  transition:transform .12s, box-shadow .12s;
+}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--pink-deep)}
+.btn:focus-visible{outline:3px solid var(--charcoal);outline-offset:3px}
+
+.card{background:#fff;border-radius:var(--r);padding:26px 22px;box-shadow:0 2px 16px rgba(74,74,74,.07)}
+
+/* ---- スクラッチ ---- */
+.scratch{
+  position:relative;width:100%;aspect-ratio:1/.72;
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:0 6px 24px rgba(74,74,74,.14);margin-bottom:14px;
+}
+.prize{
+  position:absolute;inset:0;overflow:hidden;
+  background:linear-gradient(158deg,#FFA3BB 0%,#F26A92 42%,#D4426C 100%);
+  display:flex;align-items:center;justify-content:center;padding:15px;
+}
+/* 放射状の光 */
+.prize .rays{
+  position:absolute;inset:-40%;
+  background:repeating-conic-gradient(from 0deg,
+    rgba(255,255,255,.20) 0deg 6deg, transparent 6deg 15deg);
+  animation:spin 34s linear infinite;
+}
+.prize .glow{
+  position:absolute;inset:0;
+  background:radial-gradient(60% 55% at 50% 48%, rgba(255,255,255,.55) 0%, transparent 70%);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* きらめき */
+.prize .spark{position:absolute;color:#fff;font-size:13px;opacity:.9;animation:twinkle 2.6s ease-in-out infinite}
+.prize .spark:nth-of-type(1){top:13%;left:11%;animation-delay:0s}
+.prize .spark:nth-of-type(2){top:71%;left:86%;font-size:10px;animation-delay:.8s}
+.prize .spark:nth-of-type(3){top:80%;left:16%;font-size:11px;animation-delay:1.5s}
+.prize .spark:nth-of-type(4){top:20%;left:88%;font-size:9px;animation-delay:2.1s}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.5)}45%{opacity:1;transform:scale(1)}}
+
+/* チケット本体 */
+.ticket-wrap{
+  position:relative;width:100%;max-width:330px;
+  filter:drop-shadow(0 9px 20px rgba(120,20,52,.32));
+}
+.ticket{
+  position:relative;z-index:1;width:100%;
+  background:linear-gradient(170deg,#FFFDF9 0%,#FFF4E9 100%);
+  border-radius:16px;padding:20px 22px 15px;text-align:center;
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset;
+  -webkit-mask:
+    radial-gradient(circle 12px at 0% 50%, transparent 97%, #000 100%),
+    radial-gradient(circle 12px at 100% 50%, transparent 97%, #000 100%);
+  -webkit-mask-composite:source-in;
+  mask:
+    radial-gradient(circle 12px at 0% 50%, transparent 97%, #000 100%),
+    radial-gradient(circle 12px at 100% 50%, transparent 97%, #000 100%);
+  mask-composite:intersect;
+}
+.ticket .frame{
+  position:absolute;inset:6px;border:1px solid rgba(220,177,96,.75);
+  border-radius:11px;pointer-events:none;
+}
+.ticket .kicker{
+  position:relative;font-size:10.5px;letter-spacing:.26em;font-weight:700;
+  color:var(--gold);margin:0 0 4px;padding-left:.26em;
+}
+.ticket .amt{
+  position:relative;font-size:62px;font-weight:900;line-height:.98;
+  letter-spacing:-.03em;
+  background:linear-gradient(178deg,#E9557F 0%,var(--rose) 48%,var(--rose-dark) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.ticket .amt .yen{font-size:26px;font-weight:900;margin-left:1px;letter-spacing:0}
+.ticket .off{
+  position:relative;display:inline-block;vertical-align:8px;margin-left:7px;
+  background:linear-gradient(180deg,var(--gold-lt),var(--gold));
+  color:#6B4A12;font-size:14px;font-weight:900;letter-spacing:.08em;
+  padding:3px 11px;border-radius:999px;box-shadow:0 1px 3px rgba(107,74,18,.25);
+}
+.ticket .rule{
+  position:relative;height:1px;margin:11px 4px 9px;
+  background:repeating-linear-gradient(90deg,rgba(212,66,108,.34) 0 5px,transparent 5px 10px);
+}
+.ticket .cap{position:relative;font-size:12.5px;font-weight:700;color:var(--charcoal-soft);letter-spacing:.02em}
+.ticket-wrap .badge{
+  position:absolute;top:-10px;left:50%;translate:-50% 0;z-index:5;
+  background:var(--rose-dark);color:#fff;font-size:10.5px;font-weight:700;
+  letter-spacing:.14em;padding:3px 13px;border-radius:999px;white-space:nowrap;
+  box-shadow:0 2px 6px rgba(120,20,52,.35);
+}
+/* 開封時 */
+.scratch.done .ticket-wrap{animation:pop .55s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.035)}100%{transform:scale(1)}}
+
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+
+/* ---- 手のガイド ---- */
+.guide{
+  position:absolute;left:50%;top:50%;translate:-50% -50%;
+  pointer-events:none;transition:opacity .3s;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.guide svg{width:74px;height:74px;display:block;animation:swipe 1.9s ease-in-out infinite;filter:drop-shadow(0 3px 5px rgba(60,90,105,.28))}
+.guide .say{
+  font-size:15px;font-weight:700;color:#4F6D79;
+  background:rgba(255,255,255,.82);padding:6px 16px;border-radius:999px;
+  animation:breathe 1.9s ease-in-out infinite;
+}
+@keyframes swipe{
+  0%,100%{transform:translateX(-34px) rotate(-9deg)}
+  50%    {transform:translateX(34px)  rotate(9deg)}
+}
+@keyframes breathe{0%,100%{opacity:.72}50%{opacity:1}}
+.scratch.touched .guide{opacity:0}
+.scratch.done canvas{opacity:0;transition:opacity .45s;pointer-events:none}
+
+/* ---- コード ---- */
+.code-row{display:flex;align-items:stretch;gap:10px;margin:18px 0 6px}
+.code{
+  flex:1;background:#fff;border-radius:14px;border:2px dashed var(--pink-pale);
+  font-size:24px;font-weight:900;letter-spacing:.08em;text-align:center;padding:14px 8px;
+  font-family:ui-monospace,"Zen Maru Gothic",monospace;
+}
+.copy{border:0;border-radius:14px;background:var(--charcoal);color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:0 18px;cursor:pointer;white-space:nowrap}
+.copy:focus-visible{outline:3px solid var(--pink-deep);outline-offset:2px}
+.copy.ok{background:var(--line-green)}
+.terms{font-size:12.5px;line-height:1.85;color:var(--charcoal-soft);margin:14px 0 0;padding:14px 16px;background:#FDF7F3;border-radius:14px}
+.terms ul{margin:0;padding-left:1.1em}
+.note{text-align:center;font-size:12.5px;color:var(--charcoal-soft);margin:10px 0 0}
+
+/* ---- 定期便メリット ---- */
+.merit{
+  position:relative;margin-top:16px;padding:24px 22px 22px;border-radius:var(--r);
+  background:linear-gradient(180deg,#FFF6F9 0%,#FFFFFF 60%);
+  box-shadow:0 0 0 2px var(--pink-pale) inset, 0 6px 20px rgba(255,128,157,.14);
+  overflow:hidden;
+}
+.merit h3{font-size:19px;font-weight:900;margin:0 0 16px;text-align:center;line-height:1.5}
+.merit ul{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:11px}
+.merit li{display:flex;gap:11px;align-items:flex-start;font-size:15px;font-weight:500;line-height:1.6}
+.merit li .ck{
+  flex:0 0 22px;height:22px;margin-top:2px;border-radius:50%;
+  background:var(--pink);color:#fff;font-size:13px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+}
+.merit li b{font-weight:700}
+
+/* ---- 主要CTA ---- */
+.btn.shop{
+  font-size:19px;font-weight:900;padding:22px 20px;
+  background:linear-gradient(180deg,#FF95AE 0%,var(--pink) 100%);
+  box-shadow:0 5px 0 var(--pink-deep), 0 8px 22px rgba(228,92,124,.3);
+  animation:nudge 2.6s ease-in-out infinite;overflow:hidden;position:relative;
+}
+.btn.shop:active{box-shadow:0 1px 0 var(--pink-deep);animation:none}
+.cta-lead{
+  text-align:center;font-size:13.5px;font-weight:700;color:var(--pink-deep);
+  margin:0 0 8px;letter-spacing:.02em
+}
+
+/* ---- LINE 導線 ---- */
+.upsell{
+  position:relative;margin-top:26px;padding:26px 22px 24px;border-radius:var(--r);
+  background:linear-gradient(180deg,#F2FCF5 0%,#FFFFFF 62%);
+  box-shadow:0 0 0 2px #BCE9CB inset, 0 6px 20px rgba(6,199,85,.13);
+  text-align:center;overflow:hidden;
+}
+.upsell::after{
+  content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);
+  animation:sheen 3.4s ease-in-out infinite;
+}
+@keyframes sheen{0%{left:-60%}55%,100%{left:130%}}
+.upsell .tag{
+  display:inline-block;background:var(--line-green);color:#fff;
+  font-size:12px;font-weight:700;padding:5px 14px;border-radius:999px;margin-bottom:12px;
+}
+.upsell h3{font-size:20px;font-weight:900;margin:0 0 18px;line-height:1.55}
+.upsell p{font-size:14px;color:var(--charcoal-soft);margin:0 0 18px;line-height:1.7}
+.btn.line{
+  position:relative;background:var(--line-green);box-shadow:0 4px 0 #04A548;
+  animation:nudge 2.4s ease-in-out infinite;
+}
+.btn.line:active{box-shadow:0 1px 0 #04A548;animation:none}
+@keyframes nudge{
+  0%,72%,100%{transform:translateY(0)}
+  80%{transform:translateY(-6px)}
+  88%{transform:translateY(0)}
+}
+.arrow{display:block;margin:0 auto 6px;width:26px;height:26px;color:var(--line-green);animation:drop 1.6s ease-in-out infinite}
+@keyframes drop{0%,100%{transform:translateY(-3px);opacity:.55}50%{transform:translateY(3px);opacity:1}}
+
+.foot{text-align:center;font-size:11.5px;color:#B0A79E;margin-top:32px;line-height:1.8}
+#result{animation:in .45s ease both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <p class="eyebrow">お買い上げありがとうございます</p>
+  <h1>この下に<br>お得な限定クーポンがあります</h1>
+  <p class="lead">指でこすると出てきます。<br>全員にもれなくお渡ししています。</p>
+
+  <div class="scratch" id="sc">
+    <div class="prize">
+      <div class="rays"></div>
+      <div class="glow"></div>
+      <span class="spark">✦</span><span class="spark">✦</span>
+      <span class="spark">✦</span><span class="spark">✦</span>
+      <div class="ticket-wrap">
+        <span class="badge">もれなく全員</span>
+        <div class="ticket">
+        <div class="frame"></div>
+        <p class="kicker">SPECIAL COUPON</p>
+        <div class="amt">500<span class="yen">円</span><span class="off">OFF</span></div>
+        <div class="rule"></div>
+        <p class="cap">公式オンラインストア 定期便</p>
+        </div>
+      </div>
+    </div>
+    <canvas id="cv"></canvas>
+    <div class="guide" id="guide">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <path d="M25 40V17a4.5 4.5 0 1 1 9 0v14" fill="#fff" stroke="#4F6D79" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M34 31v-3a4 4 0 0 1 8 0v4" fill="#fff" stroke="#4F6D79" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M42 32v-2a4 4 0 0 1 8 0v11c0 8-5 14-13 14h-4c-6 0-9-3-11-8l-5-11a4 4 0 0 1 7-4l3 5" fill="#fff" stroke="#4F6D79" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="say">こすってください</span>
+    </div>
+  </div>
+
+  <div id="result" hidden>
+    <div class="card">
+      <p style="text-align:center;margin:0 0 4px;font-size:15px;font-weight:700">クーポンコード</p>
+      <div class="code-row">
+        <div class="code" id="code">MEICE500</div>
+        <button class="copy" data-copy="code">コピー</button>
+      </div>
+      <div class="terms">
+        <ul>
+          <li>公式オンラインストアの定期便 初回のみ</li>
+          <li>お一人さま1回かぎり</li>
+          <li>有効期限：受け取りから30日</li>
+          <li>他のクーポンとの併用不可</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="merit">
+      <h3>定期便だと、ここが違います</h3>
+      <ul>
+        <li><span class="ck">✓</span><span>お好きな<b>フレーバーを自由に組み合わせ</b>できます</span></li>
+        <li><span class="ck">✓</span><span><b>スキップ・停止はいつでも</b>できます</span></li>
+        <li><span class="ck">✓</span><span><b>お届け日を指定</b>できます</span></li>
+        <li><span class="ck">✓</span><span><b>どこのモールよりもお安く</b>お買い求めいただけます</span></li>
+        <li><span class="ck">✓</span><span>個数によって<b>1個あたりの単価が下がっていきます</b></span></li>
+      </ul>
+      <p class="cta-lead">＼ クーポンは定期便のお会計で使えます ／</p>
+      <button class="btn shop">定期便のページへ進む</button>
+      <p class="note">お会計画面のクーポン欄にコードを入力してください</p>
+    </div>
+
+    <div class="upsell">
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 4v14m0 0 6-6m-6 6-6-6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="tag">公式LINE</span>
+      <h3>公式LINE追加で<br>さらにお得なクーポンを<br>GETできます！</h3>
+      <button class="btn line" id="btn-line">LINEで友だち追加する</button>
+    </div>
+  </div>
+
+  <p class="foot">
+    株式会社LacuS ／ Me TIME FOODS<br>
+    本クーポンは商品代金の割引です。抽選ではありません。
+  </p>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG
+   ============================================================ */
+const CONFIG = {
+  code:    "MEICE500",
+  lineURL: "https://lin.ee/XIx9eV1",
+  shopURL: "https://metimefoods.jp/shop/sets",
+  appendCoupon: false,   // ecforce確認後に true → ?coupon=CODE を付与
+  revealAt: 0.38         // この割合まで削れたら自動で全開
+};
+
+document.getElementById('code').textContent = CONFIG.code;
+
+/* ============================================================
+   スクラッチ
+   ============================================================ */
+(function(){
+  const wrap = document.getElementById('sc');
+  const cv   = document.getElementById('cv');
+  const ctx  = cv.getContext('2d');
+  const result = document.getElementById('result');
+
+  const dpr  = Math.min(window.devicePixelRatio || 1, 2);
+  const rect = wrap.getBoundingClientRect();
+  cv.width  = rect.width  * dpr;
+  cv.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+
+  /* 霜の面 */
+  const g = ctx.createLinearGradient(0,0,rect.width,rect.height);
+  g.addColorStop(0,'#F2F8FA'); g.addColorStop(.45,'#DCEBF1'); g.addColorStop(1,'#C3DDE7');
+  ctx.fillStyle = g; ctx.fillRect(0,0,rect.width,rect.height);
+
+  for(let i=0;i<900;i++){
+    ctx.globalAlpha = Math.random()*.5+.12;
+    ctx.fillStyle = Math.random()>.35 ? '#FFFFFF' : '#A9C9D6';
+    ctx.beginPath();
+    ctx.arc(Math.random()*rect.width, Math.random()*rect.height, Math.random()*2.2+.3, 0, 7);
+    ctx.fill();
+  }
+  ctx.globalAlpha=.30; ctx.strokeStyle='#FFF'; ctx.lineWidth=1.4;
+  for(let i=0;i<26;i++){
+    const x=Math.random()*rect.width, y=Math.random()*rect.height,
+          l=Math.random()*26+10, a=Math.random()*Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(x-Math.cos(a)*l, y-Math.sin(a)*l);
+    ctx.lineTo(x+Math.cos(a)*l, y+Math.sin(a)*l);
+    ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+  ctx.globalCompositeOperation='destination-out';
+
+  let drawing=false, done=false, moved=0;
+
+  const pos = e => {
+    const r = cv.getBoundingClientRect();
+    return { x:e.clientX-r.left, y:e.clientY-r.top };
+  };
+  const dig = (x,y) => {
+    ctx.beginPath(); ctx.arc(x,y,28,0,7); ctx.fill();
+    wrap.classList.add('touched');
+  };
+
+  cv.addEventListener('pointerdown', e=>{ drawing=true; const p=pos(e); dig(p.x,p.y); e.preventDefault(); });
+  cv.addEventListener('pointermove', e=>{
+    if(!drawing) return;
+    const p=pos(e); dig(p.x,p.y);
+    if(++moved % 8 === 0) check();
+    e.preventDefault();
+  });
+  window.addEventListener('pointerup', ()=>{ drawing=false; check(); });
+
+  function check(){
+    if(done) return;
+    const d = ctx.getImageData(0,0,cv.width,cv.height).data;
+    let clear=0, n=0;
+    for(let i=3;i<d.length;i+=4*24){ n++; if(d[i]<40) clear++; }
+    if(clear/n > CONFIG.revealAt){
+      done = true;
+      wrap.classList.add('done');
+      setTimeout(()=>{
+        result.hidden = false;
+        result.scrollIntoView({behavior:'smooth', block:'nearest'});
+      }, 320);
+    }
+  }
+})();
+
+/* ---- コピー ---- */
+document.querySelectorAll('[data-copy]').forEach(b=>{
+  b.addEventListener('click', async ()=>{
+    const t = document.getElementById(b.dataset.copy).textContent.trim();
+    try{ await navigator.clipboard.writeText(t); }
+    catch(e){
+      const ta=document.createElement('textarea');
+      ta.value=t; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+    }
+    const old=b.textContent;
+    b.textContent='コピーしました'; b.classList.add('ok');
+    setTimeout(()=>{ b.textContent=old; b.classList.remove('ok'); }, 1800);
+  });
+});
+
+/* ---- 遷移 ---- */
+document.querySelectorAll('.btn.shop').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    const url = CONFIG.appendCoupon
+      ? CONFIG.shopURL + (CONFIG.shopURL.includes('?') ? '&' : '?') + 'coupon=' + encodeURIComponent(CONFIG.code)
+      : CONFIG.shopURL;
+    window.open(url,'_blank','noopener');
+  });
+});
+document.getElementById('btn-line').addEventListener('click', ()=>{
+  window.open(CONFIG.lineURL,'_blank','noopener');
+});
+</script>
